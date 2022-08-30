@@ -21,7 +21,7 @@ class CourseFactory extends Factory
     public function released(Carbon $releasedAt = null): self
     {
         return $this->state(
-            fn(array $attributes) => ['released_at' => $releasedAt ?? now()]
+            fn (array $attributes) => ['released_at' => $releasedAt ?? now()]
         );
     }
 }

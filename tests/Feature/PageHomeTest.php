@@ -25,8 +25,8 @@ it('shows courses overview', function () {
         ]);
 });
 
-it('only shows released courses', function() {
-	// Arrange
+it('only shows released courses', function () {
+    // Arrange
     $releasedCourse = Course::factory()
         ->released()
         ->create();
@@ -40,8 +40,8 @@ it('only shows released courses', function() {
         ->assertDontSeeText($notReleasedCourse->title);
 });
 
-it('shows courses ordered by released date', function() {
-	// Arrange
+it('shows courses ordered by released date', function () {
+    // Arrange
     $releasedCourse = Course::factory()->released(Carbon::yesterday())->create();
     $newestReleasedCourse = Course::factory()->released()->create();
 
