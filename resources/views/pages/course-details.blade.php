@@ -1,7 +1,7 @@
 <h2>{{ $course->title }}</h2>
 <h3>{{ $course->tagline }}</h3>
 <p>{{ $course->description }}</p>
-<p>{{ count($course->videos) }} videos</p>
+<p>{{ $course->videos_count }} videos</p>
 
 <ul>
 
@@ -9,4 +9,4 @@
         <li>{{ $learning }}</li>
     @endforeach
 </ul>
-<img src="{{ asset("images/$course->image") }}" alt="Course image for {{ $course->title }}">
+<img src="{{ asset("images/$course->image_name") }}" alt="Course image for {{ $course->title }}">

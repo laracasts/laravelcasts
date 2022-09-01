@@ -14,7 +14,8 @@ it('shows courses overview', function () {
     $lastCourse = Course::factory()->released()->create();
 
     // Act & Assert
-    get(route('home'))
+    get(route('page.home'))
+        ->assertOk()
         ->assertSeeText([
             $firstCourse->title,
             $firstCourse->description,
@@ -35,7 +36,8 @@ it('only shows released courses', function () {
         ->create();
 
     // Act & Assert
-    get(route('home'))
+    get(route('page.home'))
+        ->assertOk()
         ->assertSeeText($releasedCourse->title)
         ->assertDontSeeText($notReleasedCourse->title);
 });
@@ -46,9 +48,26 @@ it('shows courses ordered by released date', function () {
     $newestReleasedCourse = Course::factory()->released()->create();
 
     // Act & Assert
-    get(route('home'))
+    get(route('page.home'))
+        ->assertOk()
         ->assertSeeInOrder([
             $newestReleasedCourse->title,
             $releasedCourse->title,
+        ]);
+});
+
+it('includes courses link', function () {
+    // Arrange
+    $firstCourse = Course::factory()->released()->create();
+    $secondCourse = Course::factory()->released()->create();
+    $lastCourse = Course::factory()->released()->create();
+
+    // Act & Assert
+    get(route('page.home'))
+        ->assertOk()
+        ->assertsee([
+            route('page.course-details', $firstCourse),
+            route('page.course-details', $secondCourse),
+            route('page.course-details', $lastCourse),
         ]);
 });
