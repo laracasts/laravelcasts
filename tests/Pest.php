@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 use Tests\TestCase;
 
 /*
@@ -14,7 +14,7 @@ use Tests\TestCase;
 |
 */
 
-uses(TestCase::class, RefreshDatabase::class)->in('Feature');
+uses(TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,10 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function loginAsUser(User $user = null): User
 {
-    // ..
+    $user = $user ?? User::factory()->create();
+    test()->actingAs($user);
+
+    return $user;
 }
