@@ -12,7 +12,11 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-
+            'slug' => $this->faker->slug,
+            'vimeo_id' => $this->faker->uuid,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->text,
+            'duration' => $this->faker->numberBetween(1, 99),
         ];
     }
 }

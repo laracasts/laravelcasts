@@ -2,6 +2,7 @@
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use function Pest\Laravel\get;
@@ -67,7 +68,7 @@ it('shows latest purchased course first', function () {
 it('includes link to course videos', function () {
     // Arrange
     $user = User::factory()
-        ->has(Course::factory())
+        ->has(Course::factory()->has(Video::factory()))
         ->create();
 
     // Act
@@ -78,7 +79,7 @@ it('includes link to course videos', function () {
         ->assertSee(route('page.videos', Course::first()));
 });
 
-it('includes logout route', function() {
+it('includes logout route', function () {
     // Act & Assert
     loginAsUser();
     get(route('page.dashboard'))

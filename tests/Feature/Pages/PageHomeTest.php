@@ -53,7 +53,7 @@ it('shows courses ordered by released date', function () {
         ]);
 });
 
-it('includes login if not logged in', function() {
+it('includes login if not logged in', function () {
     // Act & Assert
     get(route('page.home'))
         ->assertOk()
@@ -61,7 +61,7 @@ it('includes login if not logged in', function() {
         ->assertSee(route('login'));
 });
 
-it('includes logout if logged in', function() {
+it('includes logout if logged in', function () {
     // Act & Assert
     loginAsUser();
     get(route('page.home'))
