@@ -59,14 +59,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function courses(): BelongsToMany
+    public function purchasedCourses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'purchased_courses')
             ->withTimestamps()
             ->orderByDesc('pivot_created_at');
     }
 
-    public function videos(): BelongsToMany
+    public function watchedVideos(): BelongsToMany
     {
         return $this->belongsToMany(Video::class, 'watched_videos')->withTimestamps();
     }
