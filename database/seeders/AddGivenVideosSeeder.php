@@ -16,6 +16,7 @@ class AddGivenVideosSeeder extends Seeder
 
         $laravelForBeginnersCourse = Course::where('title', 'Laravel For Beginners')->firstOrFail();
         $advancedLaravelCourse = Course::where('title', 'Advanced Laravel')->firstOrFail();
+        $tddTheLaravelWayCourse = Course::where('title', 'TDD The Laravel Way')->firstOrFail();
 
         Video::insert([
             [
@@ -28,25 +29,25 @@ class AddGivenVideosSeeder extends Seeder
             ],
             [
                 'course_id' => $laravelForBeginnersCourse->id,
-                'slug' => 'routes',
+                'slug' => 'routes-are-your-friends',
                 'vimeo_id' => '329875646',
-                'title' => 'Routes',
+                'title' => 'Routes are your friends',
                 'description' => 'Routes are fundamental to every web application. Laravel provides a simple syntax to define them.',
                 'duration_in_min' => 4,
             ],
             [
                 'course_id' => $laravelForBeginnersCourse->id,
-                'slug' => 'views',
+                'slug' => 'views-101',
                 'vimeo_id' => '331956991',
-                'title' => 'Views',
+                'title' => 'Views 101',
                 'description' => 'We cannot talk about routes without talking about views. Together they will make sure we can show our users a beautiful response.',
                 'duration_in_min' => 7,
             ],
             [
                 'course_id' => $advancedLaravelCourse->id,
-                'slug' => 'intro',
+                'slug' => 'welcome',
                 'vimeo_id' => '333506858',
-                'title' => 'Intro',
+                'title' => 'Welcome',
                 'description' => 'Welcome to Advanced Laravel. Are you ready to level up your Laravel skills?',
                 'duration_in_min' => 2,
             ],
@@ -66,6 +67,22 @@ class AddGivenVideosSeeder extends Seeder
                 'description' => 'Have you ever heard of the Pipeline Pattern? No? Let us fix this today.',
                 'duration_in_min' => 8,
             ],
+            [
+                'course_id' => $tddTheLaravelWayCourse->id,
+                'slug' => 'tdd-basics',
+                'vimeo_id' => '356868182',
+                'title' => 'TDD Basics',
+                'description' => 'Let us start with the basics of TDD. Only with time and experience you can master test-driven development.',
+                'duration_in_min' => 23,
+            ],
+            [
+                'course_id' => $tddTheLaravelWayCourse->id,
+                'slug' => 'laravel-tricks-for-tdd',
+                'vimeo_id' => '354598551',
+                'title' => 'Laravel tricks for TDD',
+                'description' => 'Laravel is an amazing framework for PHP. But also for testing, it has a lot of cool features that will help us on our journey to TDD.',
+                'duration_in_min' => 14,
+            ],
         ]);
     }
 
@@ -73,8 +90,10 @@ class AddGivenVideosSeeder extends Seeder
     {
         $laravelForBeginnersCourse = Course::where('title', 'Laravel For Beginners')->firstOrFail();
         $advancedLaravelCourse = Course::where('title', 'Advanced Laravel')->firstOrFail();
+        $tddTheLaravelWayCourse = Course::where('title', 'TDD The Laravel Way')->firstOrFail();
 
         return $laravelForBeginnersCourse->videos()->count() === 3
-            && $advancedLaravelCourse->videos()->count() === 3;
+            && $advancedLaravelCourse->videos()->count() === 3
+            && $tddTheLaravelWayCourse->videos()->count() === 2;
     }
 }

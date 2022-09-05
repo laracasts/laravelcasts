@@ -10,7 +10,7 @@ it('adds given courses', function () {
     $this->artisan('db:seed');
 
     // Assert
-    $this->assertDatabaseCount(Course::class, 2);
+    $this->assertDatabaseCount(Course::class, 3);
     $this->assertDatabaseHas(Course::class, ['title' => 'Laravel For Beginners']);
     $this->assertDatabaseHas(Course::class, ['title' => 'Advanced Laravel']);
 });
@@ -21,7 +21,7 @@ it('adds given courses only once', function () {
     $this->artisan('db:seed');
 
     // Assert
-    $this->assertDatabaseCount(Course::class, 2);
+    $this->assertDatabaseCount(Course::class, 3);
 });
 
 it('adds given videos', function () {
@@ -29,6 +29,7 @@ it('adds given videos', function () {
     $this->artisan('db:seed');
     $laravelForBeginnersCourse = Course::where('title', 'Laravel For Beginners')->first();
     $advancedLaravelCourse = Course::where('title', 'Advanced Laravel')->first();
+    $tddTheLaravelWayCourse = Course::where('title', 'TDD The Laravel Way')->firstOrFail();
 
     // Assert
     expect($laravelForBeginnersCourse)
@@ -38,6 +39,10 @@ it('adds given videos', function () {
     expect($advancedLaravelCourse)
         ->videos
         ->toHaveCount(3);
+
+    expect($tddTheLaravelWayCourse)
+        ->videos
+        ->toHaveCount(2);
 });
 
 it('adds given videos only once', function () {
