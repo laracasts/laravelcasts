@@ -8,7 +8,7 @@
 ## Member can
 * log in (page) ✅
 * see purchased courses (page) ✅
-* watch purchased course (page)
+* watch purchased course (page) ✅
 
 ## Admin can
 * Admin can tweet about a new course
