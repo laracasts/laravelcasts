@@ -53,6 +53,23 @@ it('shows courses ordered by released date', function () {
         ]);
 });
 
+it('includes login if not logged in', function() {
+    // Act & Assert
+    get(route('page.home'))
+        ->assertOk()
+        ->assertSeeText('Login')
+        ->assertSee(route('login'));
+});
+
+it('includes logout if logged in', function() {
+    // Act & Assert
+    loginAsUser();
+    get(route('page.home'))
+        ->assertOk()
+        ->assertSeeText('Log Out')
+        ->assertSee(route('logout'));
+});
+
 it('includes courses link', function () {
     // Arrange
     $firstCourse = Course::factory()->released()->create();
