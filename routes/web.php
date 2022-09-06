@@ -29,3 +29,5 @@ Route::middleware([
     Route::get('dashboard', PageDashboardController::class)->name('page.dashboard');
     Route::get('videos/{course:slug}/{video:slug?}', PageVideosController::class)->name('page.videos');
 });
+
+Route::webhooks('webhooks');
