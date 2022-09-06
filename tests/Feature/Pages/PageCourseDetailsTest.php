@@ -36,8 +36,8 @@ it('shows course video count', function () {
         ->assertSeeText('3 videos');
 });
 
-it('includes paddle checkout button', function() {
-	// Arrange
+it('includes paddle checkout button', function () {
+    // Arrange
     config()->set('services.paddle.vendor-id', 'vendor-id');
     $course = Course::factory()->create(['paddle_product_id' => 'product-id']);
 

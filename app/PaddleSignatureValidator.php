@@ -8,8 +8,12 @@ use Spatie\WebhookClient\WebhookConfig;
 
 class PaddleSignatureValidator implements SignatureValidator
 {
-
     public function isValid(Request $request, WebhookConfig $config): bool
+    {
+        return $this->isPaddleRequestValid($request);
+    }
+
+    protected function isPaddleRequestValid(Request $request): bool
     {
         $publicPaddleKey = config('services.paddle.public-key');
         $signature = base64_decode($request->get('p_signature'));
@@ -28,6 +32,6 @@ class PaddleSignatureValidator implements SignatureValidator
         $data = serialize($requestFields);
 
         // Verify the signature
-        return openssl_verify($data, $signature, $publicPaddleKey, OPENSSL_ALGO_SHA1);
+        return (bool) openssl_verify($data, $signature, $publicPaddleKey, OPENSSL_ALGO_SHA1);
     }
 }
