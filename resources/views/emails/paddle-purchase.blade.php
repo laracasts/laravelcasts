@@ -1,10 +1,11 @@
 @component('mail::message')
-# Introduction
+# Thanks for purchasing {{ $course->title }}
 
-The body of your message.
+If this is your first purchase on {{ config('app.name') }}, then a new account was created for you, and you just need to reset your password.
+Have fun with your new course.
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => route('login')])
+Login
 @endcomponent
 
 Thanks,<br>

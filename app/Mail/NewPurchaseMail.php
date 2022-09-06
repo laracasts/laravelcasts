@@ -2,11 +2,12 @@
 
 namespace App\Mail;
 
+use App\Models\Course;
 use Illuminate\Mail\Mailable;
 
 class NewPurchaseMail extends Mailable
 {
-    public function __construct()
+    public function __construct(public Course $course)
     {
     }
 
