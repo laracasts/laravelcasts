@@ -13,6 +13,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
+            'paddle_product_id' => $this->faker->uuid,
             'title' => $this->faker->sentence,
             'slug' => $this->faker->slug,
             'tagline' => $this->faker->sentence,

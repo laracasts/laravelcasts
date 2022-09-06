@@ -35,3 +35,16 @@ it('shows course video count', function () {
         ->assertOk()
         ->assertSeeText('3 videos');
 });
+
+it('includes paddle checkout button', function() {
+	// Arrange
+    config()->set('services.paddle.vendor-id', 'vendor-id');
+    $course = Course::factory()->create(['paddle_product_id' => 'product-id']);
+
+    // Act & Assert
+    get(route('page.course-details', $course))
+        ->assertOk()
+        ->assertSee('Paddle.Setup({ vendor: vendor-id });')
+        ->assertSee('<script src="https://cdn.paddle.com/paddle/paddle.js"></script>', false)
+        ->assertSee('<a href="#!" class="paddle_button" data-product="product-id" data-theme="none">Buy Now!</a>', false);
+});
