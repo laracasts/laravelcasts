@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="{{ route('page.home') }}">
+                <img src="{{ asset('images/tv_logo.png') }}" alt="Logo showing an illustrated TV" width="100">
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />

@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-indigo-500 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,13 +6,15 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('page.dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img class="h-8 w-auto sm:h-10"
+                             src="{{ asset('images/tv_logo.png') }}"
+                             alt="An illustrated TV as logo for LaraCasts">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('page.dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link class="text-white hover:text-yellow-400 hover:border-yellow-400" href="{{ route('page.dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
@@ -137,7 +139,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('page.dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-jet-responsive-nav-link class="text-white" href="{{ route('page.dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
@@ -152,14 +154,14 @@
                 @endif
 
                 <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-200">{{ Auth::user()->email }}</div>
                 </div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link class="text-white" href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
@@ -173,7 +175,7 @@
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                    <x-jet-responsive-nav-link class="text-white" href="{{ route('logout') }}"
                                    @click.prevent="$root.submit();">
                         {{ __('Log Out') }}
                     </x-jet-responsive-nav-link>
