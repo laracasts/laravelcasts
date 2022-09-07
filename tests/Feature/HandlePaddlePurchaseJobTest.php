@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Jobs\HandlePaddlePurchaseJob;
 use App\Mail\NewPurchaseMail;
 use App\Models\Course;
@@ -41,7 +40,7 @@ it('stores paddle purchase', function () {
     $user = User::where('email', $this->dummyWebhookCall->payload['email'])->first();
     $this->assertDatabaseHas(PurchasedCourse::class, [
         'user_id' => $user->id,
-        'course_id' => $course->id
+        'course_id' => $course->id,
     ]);
 });
 
@@ -58,7 +57,7 @@ it('stores paddle purchase with given user', function () {
     $this->assertDatabaseCount(User::class, 1);
     $this->assertDatabaseHas(PurchasedCourse::class, [
         'user_id' => $user->id,
-        'course_id' => $course->id
+        'course_id' => $course->id,
     ]);
 });
 

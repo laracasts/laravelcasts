@@ -26,7 +26,7 @@ class HandlePaddlePurchaseJob extends ProcessWebhookJob implements ShouldQueue
             $user = User::create([
                 'email' => $this->webhookCall->payload['email'],
                 'name' => $this->webhookCall->payload['name'],
-                'password' => bcrypt(Str::uuid())
+                'password' => bcrypt(Str::uuid()),
             ]);
         }
 

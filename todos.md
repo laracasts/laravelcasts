@@ -3,7 +3,7 @@
 ## Guest can
 * see courses overview (page) ✅
 * see course details (page) ✅
-* purchase a course
+* purchase a course ✅
 
 ## Member can
 * log in (page) ✅
@@ -11,5 +11,5 @@
 * watch purchased course (page) ✅
 
 ## Admin can
-* Admin can tweet about a new course
+* Admin can tweet about a new course ✅
 
