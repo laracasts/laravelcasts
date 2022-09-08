@@ -2,6 +2,7 @@
 
 use App\Models\Course;
 use Illuminate\Support\Carbon;
+use Juampi92\TestSEO\TestSEO;
 use function Pest\Laravel\get;
 
 it('shows courses overview', function () {
@@ -88,25 +89,31 @@ it('includes courses link', function () {
 
 it('includes title', function() {
     // Arrange
-    $expectedTitle = config('app.name', 'Laravel') . ' - Home';
+    $expectedTitle = config('app.name') . ' - Home';
 
-    // Act & Assert
-    get(route('page.home'))
-        ->assertOk()
-        ->assertSee("<title>$expectedTitle</title>", false);
+    // Act
+    $response = get(route('page.home'))
+        ->assertOk();
+
+    // Assert
+    $seo = new TestSEO($response->getContent());
+    expect($seo->data)
+        ->title()->toBe($expectedTitle);
 });
 
 it('includes social tags', function () {
-    // Act & Assert
-    get(route('page.home'))
-        ->assertOk()
-        ->assertSee([
-            '<meta name="description" content="LaravelCasts is the leading learning platform for Laravel developers.">',
-            '<meta property="og:type" content="website">',
-            '<meta property="og:url" content="' . route('page.home') . '">',
-            '<meta property="og:title" content="LaravelCasts">',
-            '<meta property="og:description" content="LaravelCasts is the leading learning platform for Laravel developers.">',
-            '<meta property="og:image" content="' . asset('images/social.png') . '">',
-            '<meta name="twitter:card" content="summary_large_image">',
-        ], false);
+    // Act
+    $response = get(route('page.home'))
+        ->assertOk();
+
+    // Assert
+    $seo = new TestSEO($response->getContent());
+    expect($seo->data)
+        ->description()->toBe('LaravelCasts is the leading learning platform for Laravel developers.')
+        ->openGraph()->type->toBe('website')
+        ->openGraph()->url->toBe(route('page.home'))
+        ->openGraph()->title->toBe('LaravelCasts')
+        ->openGraph()->description->toBe('LaravelCasts is the leading learning platform for Laravel developers.')
+        ->openGraph()->image->toBe(asset('images/social.png'))
+        ->twitter()->card->toBe('summary_large_image');
 });

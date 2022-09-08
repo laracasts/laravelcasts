@@ -2,6 +2,7 @@
 
 use App\Models\Course;
 use App\Models\Video;
+use Juampi92\TestSEO\TestSEO;
 use function Pest\Laravel\get;
 
 it('shows course details', function () {
@@ -49,31 +50,38 @@ it('includes paddle checkout button', function () {
         ->assertSee('<a href="#!" data-product="product-id" data-theme="none" class="paddle_button', false);
 });
 
-it('includes a title', function() {
+it('includes title', function() {
     // Arrange
     $course = Course::factory()->create();
-    $expectedTitle = config('app.name') . " - $course->title";
+    $expectedTitle = config('app.name') . ' - ' . $course->title;
 
-    // Act & Assert
-    get(route('page.course-details', $course))
-        ->assertOk()
-        ->assertSee("<title>$expectedTitle</title>", false);
+    // Act
+    $response = get(route('page.course-details', $course))
+        ->assertOk();
+
+    // Assert
+    $seo = new TestSEO($response->getContent());
+    expect($seo->data)
+        ->title()->toBe($expectedTitle);
 });
 
 it('includes social tags', function () {
     // Arrange
     $course = Course::factory()->create();
 
-    // Act & Assert
-    get(route('page.course-details', $course))
-        ->assertOk()
-        ->assertSee([
-            '<meta name="description" content="' . $course->description . '">',
-            '<meta property="og:type" content="website">',
-            '<meta property="og:url" content="' . route('page.course-details', $course) . '">',
-            '<meta property="og:title" content="' . $course->title . '">',
-            '<meta property="og:description" content="' . $course->description . '">',
-            '<meta property="og:image" content="' . asset("images/$course->image_name") . '">',
-            '<meta name="twitter:card" content="summary_large_image">',
-        ], false);
+    // Act
+    $response = get(route('page.course-details', $course))
+        ->assertOk();
+
+    // Assert
+    $seo = new TestSEO($response->getContent());
+    expect($seo->data)
+        ->description()->toBe($course->description)
+        ->openGraph()->type->toBe('website')
+        ->openGraph()->url->toBe(route('page.course-details', $course))
+        ->openGraph()->title->toBe($course->title)
+        ->openGraph()->description->toBe($course->description)
+        ->openGraph()->image->toBe(asset("images/$course->image_name"))
+        ->twitter()->card->toBe('summary_large_image');
+
 });
