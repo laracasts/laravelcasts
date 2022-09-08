@@ -2,7 +2,7 @@
 
 namespace App\Services\Twitter;
 
-class NullTwitter implements TwitterClientInterface
+class NullTwitterClient implements TwitterClientInterface
 {
     public function tweet(string $status): array
     {
