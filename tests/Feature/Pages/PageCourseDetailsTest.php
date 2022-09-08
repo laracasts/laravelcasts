@@ -48,3 +48,32 @@ it('includes paddle checkout button', function () {
         ->assertSee('<script src="https://cdn.paddle.com/paddle/paddle.js"></script>', false)
         ->assertSee('<a href="#!" data-product="product-id" data-theme="none" class="paddle_button', false);
 });
+
+it('includes a title', function() {
+    // Arrange
+    $course = Course::factory()->create();
+    $expectedTitle = config('app.name') . " - $course->title";
+
+    // Act & Assert
+    get(route('page.course-details', $course))
+        ->assertOk()
+        ->assertSee("<title>$expectedTitle</title>", false);
+});
+
+it('includes social tags', function () {
+    // Arrange
+    $course = Course::factory()->create();
+
+    // Act & Assert
+    get(route('page.course-details', $course))
+        ->assertOk()
+        ->assertSee([
+            '<meta name="description" content="' . $course->description . '">',
+            '<meta property="og:type" content="website">',
+            '<meta property="og:url" content="' . route('page.course-details', $course) . '">',
+            '<meta property="og:title" content="' . $course->title . '">',
+            '<meta property="og:description" content="' . $course->description . '">',
+            '<meta property="og:image" content="' . asset("images/$course->image_name") . '">',
+            '<meta name="twitter:card" content="summary_large_image">',
+        ], false);
+});

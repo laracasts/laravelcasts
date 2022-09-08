@@ -1,4 +1,18 @@
-<x-guest-layout>
+<x-guest-layout :page-title="config('app.name') . ' - ' . $course->title">
+
+    @push('social-meta')
+        <meta name="description" content="{{ $course->description }}">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ route('page.course-details', $course) }}">
+        <meta property="og:title" content="{{ $course->title }}">
+        <meta property="og:description" content="{{ $course->description }}">
+        <meta property="og:image" content="{{ asset("images/$course->image_name") }}">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+    @endpush
 
     <div class="relative py-12">
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
