@@ -87,9 +87,9 @@ it('includes courses link', function () {
         ]);
 });
 
-it('includes title', function() {
+it('includes title', function () {
     // Arrange
-    $expectedTitle = config('app.name') . ' - Home';
+    $expectedTitle = config('app.name').' - Home';
 
     // Act
     $response = get(route('page.home'))

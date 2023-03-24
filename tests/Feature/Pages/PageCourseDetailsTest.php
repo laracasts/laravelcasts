@@ -50,10 +50,10 @@ it('includes paddle checkout button', function () {
         ->assertSee('<a href="#!" data-product="product-id" data-theme="none" class="paddle_button', false);
 });
 
-it('includes title', function() {
+it('includes title', function () {
     // Arrange
     $course = Course::factory()->create();
-    $expectedTitle = config('app.name') . ' - ' . $course->title;
+    $expectedTitle = config('app.name').' - '.$course->title;
 
     // Act
     $response = get(route('page.course-details', $course))
@@ -83,5 +83,4 @@ it('includes social tags', function () {
         ->openGraph()->description->toBe($course->description)
         ->openGraph()->image->toBe(asset("images/$course->image_name"))
         ->twitter()->card->toBe('summary_large_image');
-
 });
